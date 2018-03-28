@@ -28,7 +28,11 @@ public class Spawner : MonoBehaviour
     ScoreHolder score;
     Text ResourcesMoney, MoneyText;
 
+    public GameObject soundManagement;
+    GameplaySoundMangement gs;
 
+
+    OptionSetting ruleAndUi;
     // Use this for initialization
     void Start()
     {
@@ -37,6 +41,11 @@ public class Spawner : MonoBehaviour
         MoneyText = GameObject.Find("MoneyText").GetComponent<Text>();
         ScoreHolderGameObject = GameObject.Find("ScoreHolderGameObject");
         score = ScoreHolderGameObject.GetComponent<ScoreHolder>();
+
+        soundManagement = GameObject.Find("GameplaySoundManagementGameObject");
+        gs = soundManagement.GetComponent<GameplaySoundMangement>();
+
+        ruleAndUi = GameObject.Find("GamePlayUIandRuleManagement").GetComponent<OptionSetting>();
     }
 
     // Update is called once per frame
@@ -44,7 +53,7 @@ public class Spawner : MonoBehaviour
     {
         if (Time.time > NextSpawn && enableAutomaticSpawn)
         {
-            if (Random.Range(1, spawnerFrequent) == Random.Range(1, spawnerFrequent))
+            if (Random.Range(1, ruleAndUi.GetSpawnRate()) == Random.Range(1, ruleAndUi.GetSpawnRate()))
             {
                 SpawnNow();
             }
@@ -66,14 +75,21 @@ public class Spawner : MonoBehaviour
     int SpawnOnce = 1;
     public void SpawnNow()
     {
+
+     
+
+
         if (SpawnOnce == 1 && UnitCost > (int.Parse(ResourcesMoney.text)))
         {
             ResourcesMoney.color = Color.red;
             MoneyText.color = Color.red;
+            gs.FailRecruit();
             
         }
             if (SpawnOnce == 1 && !enableAutomaticSpawn && UnitCost <= (int.Parse(ResourcesMoney.text)))
         {
+
+            gs.playSound();
             ResourcesMoney.color = Color.white;
             MoneyText.color = Color.white;
             NextSpawn = Time.time + SpawnRate;

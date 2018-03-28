@@ -6,34 +6,38 @@ public class TowerScript : MonoBehaviour
 {
     Rigidbody2D rd;
     Animator anim;
-    public int hp = 50;
+    public int hp = 1;
     public string EnemyFlagger;
     public string TowerOwner;
     Text Result;
     Text ResourcesMoney;
     GameObject ScoreHolderGameObject;
     ScoreHolder score;
-    GameObject cannon;
-    string colorForPlayer = "BLUE";
-    string ColorForEnemy = "RED";
+    public GameObject cannon;
+    
+    OptionSetting ruleAndUi;
 
+    public GameObject resultGameCanvas;
     // Use this for initialization
     void Start()
     {
-        Result = GameObject.Find("Result").GetComponent<Text>();
+        
+
+        ruleAndUi = GameObject.Find("GamePlayUIandRuleManagement").GetComponent<OptionSetting>();
+
         ResourcesMoney = GameObject.Find("ResourcesMoney").GetComponent<Text>();
         ScoreHolderGameObject = GameObject.Find("ScoreHolderGameObject");
         score = ScoreHolderGameObject.GetComponent<ScoreHolder>();
-        cannon = GameObject.Find(TowerOwner == "Player" ? "cannon" : TowerOwner == "Enemy" ? "cannonEnemy" : "cannon");
+        
 
-        GameObject flagPlayer = GameObject.Find("PlayerMainTower/Flag/flag_flagger");
-        GameObject flagEnemy = GameObject.Find("EnemyMainTower/Flag/flag_flagger");
+        
 
-        SpriteRenderer colorFlagPlayer = flagPlayer.GetComponent<SpriteRenderer>();
-        colorFlagPlayer.color = CharacterScript.SetColor(colorForPlayer);
+       
+       
 
-        SpriteRenderer colorFlagEnemy = flagEnemy.GetComponent<SpriteRenderer>();
-        colorFlagEnemy.color = CharacterScript.SetColor(ColorForEnemy);
+        Result = GameObject.Find("Result").GetComponent<Text>();
+
+
     }
 
     // Update is called once per frame
@@ -47,8 +51,10 @@ public class TowerScript : MonoBehaviour
         if (collision.gameObject.tag == EnemyFlagger)
         {
             hp--;
+            
             if (hp == 0)
             {
+                Destroy(cannon);
                 Destroy(this.gameObject);
                 if (TowerOwner == "Player")
                 {
@@ -63,7 +69,7 @@ public class TowerScript : MonoBehaviour
                     Result.text += "\n" + "Thanks For Playing";
 
                     Destroy(GameObject.Find("EnemyTroopSpawner"));
-                    
+                    resultGameCanvas.SetActive(true);
                 }
                 else if (TowerOwner == "Enemy")
                 {
@@ -77,11 +83,14 @@ public class TowerScript : MonoBehaviour
                     Result.text += "\n" + "Enemy Troop Train " + score.EnemyTroopTrainTotal;
                     Result.text += "\n" + "Your Money " + score.MoneyTotal;
                     Result.text += "\n" + "Thanks For Playing";
+
                     Destroy(GameObject.Find("EnemyTroopSpawner"));
-                   
+                    resultGameCanvas.SetActive(true);
                 }
-                Destroy(cannon);
+                
             }
         }
+       
+        
     }
 }

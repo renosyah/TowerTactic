@@ -24,6 +24,12 @@ public class MenuNavigator : MonoBehaviour {
     {
         SceneManager.LoadScene("gameplay");
     }
+    public void Option()
+    {
+        SceneManager.LoadScene("OptionScene");
+    }
+   
+
     public void Exit()
     {
         Application.Quit();

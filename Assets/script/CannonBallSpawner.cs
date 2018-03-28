@@ -18,18 +18,28 @@ public class CannonBallSpawner : MonoBehaviour {
     public bool AutoShoot = true;
     Text ResourcesMoney, MoneyText;
 
+
+    OptionSetting ruleAndUi;
+
+    public GameObject soundManagement;
+    GameplaySoundMangement gs;
+
     // Use this for initialization
     void Start () {
         ResourcesMoney = GameObject.Find("ResourcesMoney").GetComponent<Text>();
         MoneyText = GameObject.Find("MoneyText").GetComponent<Text>();
 
         animCannonItself = CannonItself.GetComponent<Animator>();
+        soundManagement = GameObject.Find("GameplaySoundManagementGameObject");
+        gs = soundManagement.GetComponent<GameplaySoundMangement>();
+
+        ruleAndUi = GameObject.Find("GamePlayUIandRuleManagement").GetComponent<OptionSetting>();
     }
 	
 	// Update is called once per frame
 	void Update () {
        
-        if (Random.Range(MinFireFrequenty, MaxFireFrequenty) == Random.Range(MinFireFrequenty, MaxFireFrequenty) && AutoShoot)
+        if (Random.Range(ruleAndUi.GetFireRateMin(), ruleAndUi.GetFireRateMax()) == Random.Range(ruleAndUi.GetFireRateMin(), ruleAndUi.GetFireRateMax()) && AutoShoot)
         {
             ShotCannonBall();
 
@@ -42,11 +52,23 @@ public class CannonBallSpawner : MonoBehaviour {
         {
             ResourcesMoney.color = Color.red;
             MoneyText.color = Color.red;
+
+            
+
+            if (Side == "Player")
+            {
+                gs.CannotFireCannon();
+            }
+           
+            
+            
         }
         if (!AutoShoot && Oneshot == 1 && 10 <= (int.Parse(ResourcesMoney.text)))
         {
             animCannonItself.SetBool("Shot", true);
-            
+
+            gs.PlayFireCannon();
+
             ResourcesMoney.color = Color.white;
             MoneyText.color = Color.white;
             Projectile = (GameObject)Instantiate(CannonShell, transform.position, Quaternion.identity);
@@ -57,7 +79,9 @@ public class CannonBallSpawner : MonoBehaviour {
         }else if (AutoShoot)
         {
             animCannonItself.SetBool("Shot", true);
-            
+
+            gs.PlayFireCannon();
+
             Projectile = (GameObject)Instantiate(CannonShell, transform.position, Quaternion.identity);
             Rigidbody2D rd_Shell = Projectile.GetComponent<Rigidbody2D>();
             rd_Shell.velocity = new Vector3(Side == "Player" ? Random.Range(projectileVelocityMin, projectileVelocityMax) : Side == "Enemy" ? -Random.Range(projectileVelocityMin, projectileVelocityMax) : 0, rd_Shell.velocity.y, 0);

@@ -17,9 +17,13 @@ public class GoldMineScript : MonoBehaviour {
     public Sprite mine1;
     public Sprite mine2;
     public Sprite mine3;
+    public Sprite mine4;
+    public Sprite mine5;
+    public GameObject soundManagement;
+    GameplaySoundMangement gs;
 
-    string colorForPlayer = "BLUE";
-    string ColorForEnemy = "RED";
+    OptionSetting ruleAndUi;
+
     // Use this for initialization
     void Start () {
         rd = this.gameObject.GetComponent<Rigidbody2D>();
@@ -30,8 +34,13 @@ public class GoldMineScript : MonoBehaviour {
         ResourcesMoney = GameObject.Find("ResourcesMoney").GetComponent<Text>();
         findMineFlag = GameObject.Find(NameGameObject + "/Flag/flag_flagger");
         flagColor = findMineFlag.GetComponent<SpriteRenderer>();
-        
-        sprt.sprite = Random.Range(1,3) == 1 ? mine1 : Random.Range(1,3) == 2 ? mine2 : mine3;
+
+        soundManagement = GameObject.Find("GameplaySoundManagementGameObject");
+        gs = soundManagement.GetComponent<GameplaySoundMangement>();
+
+        sprt.sprite = Random.Range(1,5) == 1 ? mine1 : Random.Range(1,5) == 2 ? mine2 : Random.Range(1, 5) == 3 ? mine3 : Random.Range(1, 5) == 4 ? mine4 : mine5;
+
+        ruleAndUi = GameObject.Find("GamePlayUIandRuleManagement").GetComponent<OptionSetting>();
     }
 	
 	// Update is called once per frame
@@ -40,6 +49,7 @@ public class GoldMineScript : MonoBehaviour {
         {
             
             ResourcesMoney.text = (int.Parse(ResourcesMoney.text) + resourcesValue) + "";
+            gs.PlayCaptureMine();
         }
         else if (Owner == "Enemy")
         {
@@ -56,16 +66,18 @@ public class GoldMineScript : MonoBehaviour {
         if (collision.gameObject.tag == "PlayerFlagger")
         {
 
-            flagColor.color =CharacterScript.SetColor(colorForPlayer);
+            flagColor.color =CharacterScript.SetColor(ruleAndUi.colorForPlayer);
             this.gameObject.layer = 13;
+            Destroy(GameObject.Find(collision.gameObject.name));
             Owner = "Player";
 
         }
         else if (collision.gameObject.tag == "EnemyFlagger")
         {
             
-            flagColor.color = CharacterScript.SetColor(ColorForEnemy); ;
+            flagColor.color = CharacterScript.SetColor(ruleAndUi.colorForEnemy); ;
             this.gameObject.layer = 12;
+            Destroy(GameObject.Find(collision.gameObject.name));
             Owner = "Enemy";
         }
     }

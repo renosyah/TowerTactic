@@ -16,15 +16,14 @@ public class CharacterScript : MonoBehaviour {
     public string SwordTag;
     public int layer;
     public string side;
-    string colorForPlayer = "BLUE";
-    string ColorForEnemy = "RED";
-
     public int UnitCost;
     public Color color;
 
     GameObject ScoreHolderGameObject;
     ScoreHolder score;
     Text ResourcesMoney, MoneyText;
+
+    public GameObject soundManagement;
 
      public static Color SetColor(string colorChoose)
     {
@@ -62,6 +61,10 @@ public class CharacterScript : MonoBehaviour {
         
     }
 
+    GameplaySoundMangement gs;
+
+    OptionSetting ruleAndUi;
+
     void Start () {
         rd = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -71,9 +74,16 @@ public class CharacterScript : MonoBehaviour {
 
         ScoreHolderGameObject = GameObject.Find("ScoreHolderGameObject");
         score = ScoreHolderGameObject.GetComponent<ScoreHolder>();
+        soundManagement = GameObject.Find("GameplaySoundManagementGameObject");
+        gs  = soundManagement.GetComponent<GameplaySoundMangement>();
+
+        ruleAndUi = GameObject.Find("GamePlayUIandRuleManagement").GetComponent<OptionSetting>();
 
         ResourcesMoney = GameObject.Find("ResourcesMoney").GetComponent<Text>();
         MoneyText = GameObject.Find("MoneyText").GetComponent<Text>();
+
+
+
         if (GameObject.Find(NameGameObject + "/arm_1/sword_swordman") != null)
         {
             GameObject.Find(NameGameObject + "/arm_1/sword_swordman").tag = SwordTag;
@@ -87,13 +97,13 @@ public class CharacterScript : MonoBehaviour {
 
             if (side == "Player")
             {
-                render.color = SetColor(colorForPlayer);
+                render.color = SetColor(ruleAndUi.colorForPlayer);
                
 
             }
             else if (side == "Enemy")
             {
-                render.color = SetColor(ColorForEnemy);
+                render.color = SetColor(ruleAndUi.colorForEnemy);
 
 
             }
@@ -106,19 +116,19 @@ public class CharacterScript : MonoBehaviour {
 
             if (side == "Player")
             {
-                render.color = SetColor(colorForPlayer);
+                render.color = SetColor(ruleAndUi.colorForPlayer);
 
 
             }
             else if (side == "Enemy")
             {
-                render.color = SetColor(ColorForEnemy);
+                render.color = SetColor(ruleAndUi.colorForEnemy);
 
 
             }
         }
 
-
+        HP = HP + ruleAndUi.GetPlushHP();
     }
 
  
@@ -139,6 +149,7 @@ public class CharacterScript : MonoBehaviour {
 
         }
         rd.velocity = new Vector3(speed, rd.velocity.y, 0);
+
     }
 
 
@@ -146,8 +157,11 @@ public class CharacterScript : MonoBehaviour {
     {
         if (collision.gameObject.tag == EnemySwordTag)
         {
+            
+            gs.playFight();
+            gs.PlayHurt();
             HP--;
-            if (HP == 0)
+            if (HP <= 0)
             {
                 
                 if (side == "Enemy")
@@ -163,6 +177,7 @@ public class CharacterScript : MonoBehaviour {
                     score.YourSoldierLost = score.YourSoldierLost + 1;
                 }
                 Destroy(this.gameObject);
+                gs.PlayDead();
 
             }
             else if (HP == 2 || HP == 3 || HP == 4)
@@ -172,24 +187,30 @@ public class CharacterScript : MonoBehaviour {
         }else if(collision.gameObject.tag == "CannonBall")
         {
 
-            HP = 0;
-            
-            if (side == "Enemy")
+            HP = HP - ruleAndUi.GetCannonBallDamage();
+            Destroy(collision.gameObject);
+            if (HP <= 0)
             {
-                
-                ResourcesMoney.color = Color.white;
-                MoneyText.color = Color.white;
-                ResourcesMoney.text = (int.Parse(ResourcesMoney.text) + UnitCost) + "";
-                score.YourSoldierKill = score.YourSoldierKill + 1;
-                score.EnemySoldierLost = score.EnemySoldierLost + 1;
-            }
-            else if (side == "Player")
-            {
-                score.YourSoldierLost = score.YourSoldierLost + 1;
-                score.EnemySoldierKill = score.EnemySoldierKill + 1;
 
+                if (side == "Enemy")
+                {
+
+                    ResourcesMoney.color = Color.white;
+                    MoneyText.color = Color.white;
+                    ResourcesMoney.text = (int.Parse(ResourcesMoney.text) + UnitCost) + "";
+                    score.YourSoldierKill = score.YourSoldierKill + 1;
+                    score.EnemySoldierLost = score.EnemySoldierLost + 1;
+                }
+                else if (side == "Player")
+                {
+                    score.YourSoldierLost = score.YourSoldierLost + 1;
+                    score.EnemySoldierKill = score.EnemySoldierKill + 1;
+
+                }
+                gs.PlayDead();
+                Destroy(this.gameObject);
             }
-            Destroy(this.gameObject);
+            
         }
     }
 

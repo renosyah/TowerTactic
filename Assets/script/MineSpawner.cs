@@ -21,13 +21,17 @@ public class MineSpawner : MonoBehaviour
     public Sprite mine1;
     public Sprite mine2;
     public Sprite mine3;
+    public Sprite mine4;
+    public Sprite mine5;
 
+    OptionSetting ruleAndUi;
 
     // Use this for initialization
     void Start()
     {
-       
-        for (int i= 1;i <= MineTotal; i++)
+        ruleAndUi = GameObject.Find("GamePlayUIandRuleManagement").GetComponent<OptionSetting>();
+
+        for (int i= 1;i <= ruleAndUi.GetMineQuantity(); i++)
         {
             SpawnNow();
         }
@@ -53,10 +57,11 @@ public class MineSpawner : MonoBehaviour
         objectSpawn.GetComponent<GoldMineScript>().resourcesValue = resourcesValue;
         objectSpawn.GetComponent<GoldMineScript>().MinMineFrequenty = MinMineFrequenty;
         objectSpawn.GetComponent<GoldMineScript>().MaxMineFrequenty = MaxMineFrequenty;
-        objectSpawn.GetComponent<GoldMineScript>().mine1 = mine1;
-        objectSpawn.GetComponent<GoldMineScript>().mine2 = mine2;
-        objectSpawn.GetComponent<GoldMineScript>().mine3 = mine3;
-        
+        objectSpawn.GetComponent<GoldMineScript>().mine1 = Random.Range(1, 5) == 1 ? mine1 : Random.Range(1, 5) == 2 ? mine2 : Random.Range(1, 5) == 3 ? mine3 : Random.Range(1, 5) == 4 ? mine4 : mine5;
+        objectSpawn.GetComponent<GoldMineScript>().mine2 = Random.Range(1, 5) == 1 ? mine1 : Random.Range(1, 5) == 2 ? mine2 : Random.Range(1, 5) == 3 ? mine3 : Random.Range(1, 5) == 4 ? mine4 : mine5;
+        objectSpawn.GetComponent<GoldMineScript>().mine3 = Random.Range(1, 5) == 1 ? mine1 : Random.Range(1, 5) == 2 ? mine2 : Random.Range(1, 5) == 3 ? mine3 : Random.Range(1, 5) == 4 ? mine4 : mine5;
+        objectSpawn.GetComponent<GoldMineScript>().mine4 = Random.Range(1, 5) == 1 ? mine1 : Random.Range(1, 5) == 2 ? mine2 : Random.Range(1, 5) == 3 ? mine3 : Random.Range(1, 5) == 4 ? mine4 : mine5;
+        objectSpawn.GetComponent<GoldMineScript>().mine5 = Random.Range(1, 5) == 1 ? mine1 : Random.Range(1, 5) == 2 ? mine2 : Random.Range(1, 5) == 3 ? mine3 : Random.Range(1, 5) == 4 ? mine4 : mine5;
 
         Instantiate(objectSpawn, whereSpawn, Quaternion.identity);
           

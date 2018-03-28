@@ -239,15 +239,23 @@
     <Compile Include="Assets\script\CameraScriptController.cs" />
     <Compile Include="Assets\script\CannonBall.cs" />
     <Compile Include="Assets\script\CannonBallSpawner.cs" />
+    <Compile Include="Assets\script\ChageDif.cs" />
+    <Compile Include="Assets\script\ChangeSound.cs" />
     <Compile Include="Assets\script\CharacterScript.cs" />
     <Compile Include="Assets\script\ExplowsiveScript.cs" />
+    <Compile Include="Assets\script\GameplaySoundMangement.cs" />
     <Compile Include="Assets\script\GoldMineScript.cs" />
     <Compile Include="Assets\script\MenuNavigator.cs" />
     <Compile Include="Assets\script\MineSpawner.cs" />
+    <Compile Include="Assets\script\OpenLink.cs" />
     <Compile Include="Assets\script\OptionSetting.cs" />
     <Compile Include="Assets\script\ScoreHolder.cs" />
+    <Compile Include="Assets\script\SettingCollorPlayer.cs" />
+    <Compile Include="Assets\script\SettingEnemyCollor.cs" />
+    <Compile Include="Assets\script\SkyRenderer.cs" />
     <Compile Include="Assets\script\Spawner.cs" />
     <Compile Include="Assets\script\SwordScript.cs" />
+    <Compile Include="Assets\script\TowerRenderer.cs" />
     <Compile Include="Assets\script\TowerScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

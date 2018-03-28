@@ -385,7 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d74ec0c8d0293449b66b74e249e21f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NameGameObject: EnemyTroopPike8.180242
+  NameGameObject: EnemyTroopPike19.7467
   Tag: EnemySwordMan
   Speed: -3
   HP: 3
@@ -397,6 +397,8 @@ MonoBehaviour:
   side: Enemy
   UnitCost: 75
   color: {r: 1, g: 0, b: 0, a: 0}
+  soundManagement: {fileID: 1352779686760342, guid: 5b72df7c3d73f2b47b78ca1bf1607d65,
+    type: 2}
 --- !u!212 &212015523045936890
 SpriteRenderer:
   m_ObjectHideFlags: 1
