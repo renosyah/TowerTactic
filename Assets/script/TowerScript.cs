@@ -6,7 +6,7 @@ public class TowerScript : MonoBehaviour
 {
     Rigidbody2D rd;
     Animator anim;
-    public int hp = 1;
+    int hp = 1;
     public string EnemyFlagger;
     public string TowerOwner;
     Text Result;
@@ -28,12 +28,13 @@ public class TowerScript : MonoBehaviour
         ResourcesMoney = GameObject.Find("ResourcesMoney").GetComponent<Text>();
         ScoreHolderGameObject = GameObject.Find("ScoreHolderGameObject");
         score = ScoreHolderGameObject.GetComponent<ScoreHolder>();
-        
 
-        
+        hp = hp + ruleAndUi.GetComponent<OptionSetting>().GetPlushHP();
 
-       
-       
+
+
+
+
 
         Result = GameObject.Find("Result").GetComponent<Text>();
 
@@ -52,8 +53,9 @@ public class TowerScript : MonoBehaviour
         {
             hp--;
             
-            if (hp == 0)
+            if (hp >= 0)
             {
+                Destroy(GameObject.Find("PlayerTroopSpawner"));
                 Destroy(cannon);
                 Destroy(this.gameObject);
                 if (TowerOwner == "Player")
@@ -69,6 +71,7 @@ public class TowerScript : MonoBehaviour
                     Result.text += "\n" + "Thanks For Playing";
 
                     Destroy(GameObject.Find("EnemyTroopSpawner"));
+                    Destroy(GameObject.Find("PlayerTroopSpawner"));
                     resultGameCanvas.SetActive(true);
                 }
                 else if (TowerOwner == "Enemy")
@@ -85,6 +88,7 @@ public class TowerScript : MonoBehaviour
                     Result.text += "\n" + "Thanks For Playing";
 
                     Destroy(GameObject.Find("EnemyTroopSpawner"));
+                    Destroy(GameObject.Find("PlayerTroopSpawner"));
                     resultGameCanvas.SetActive(true);
                 }
                 

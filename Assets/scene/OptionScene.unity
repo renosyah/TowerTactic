@@ -359,6 +359,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36140b334fc83144282ec41cd9262319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ThisIsOptionsMenu: 1
+  gameObject: {fileID: 2115248616}
+  ThisIsMainMenu: 0
 --- !u!4 &89723165
 Transform:
   m_ObjectHideFlags: 0
@@ -4873,7 +4876,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1721371968}
   - component: {fileID: 1721371970}
-  - component: {fileID: 1721371969}
   m_Layer: 0
   m_Name: paperBackSupport
   m_TagString: Untagged
@@ -4895,17 +4897,6 @@ Transform:
   m_Father: {fileID: 408171470}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!114 &1721371969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1721371967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3343dfb73e47fd2479e0c4a4d2bff6b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &1721371970
 SpriteRenderer:
   m_ObjectHideFlags: 0

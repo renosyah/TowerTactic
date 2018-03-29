@@ -1996,6 +1996,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36140b334fc83144282ec41cd9262319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ThisIsOptionsMenu: 0
+  gameObject: {fileID: 0}
+  ThisIsMainMenu: 1
 --- !u!4 &450533490
 Transform:
   m_ObjectHideFlags: 0

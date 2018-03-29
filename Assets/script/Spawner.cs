@@ -36,7 +36,7 @@ public class Spawner : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        spawnerFrequent = 15;
+        
         ResourcesMoney = GameObject.Find("ResourcesMoney").GetComponent<Text>();
         MoneyText = GameObject.Find("MoneyText").GetComponent<Text>();
         ScoreHolderGameObject = GameObject.Find("ScoreHolderGameObject");
@@ -46,14 +46,15 @@ public class Spawner : MonoBehaviour
         gs = soundManagement.GetComponent<GameplaySoundMangement>();
 
         ruleAndUi = GameObject.Find("GamePlayUIandRuleManagement").GetComponent<OptionSetting>();
+        SpawnRate = SpawnRate + ruleAndUi.GetSpawnRate();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > NextSpawn && enableAutomaticSpawn)
+        if (enableAutomaticSpawn)
         {
-            if (Random.Range(1, ruleAndUi.GetSpawnRate()) == Random.Range(1, ruleAndUi.GetSpawnRate()))
+            if (Random.Range(1, (ruleAndUi.GetSpawnRate())) == Random.Range(1, (ruleAndUi.GetSpawnRate())))
             {
                 SpawnNow();
             }

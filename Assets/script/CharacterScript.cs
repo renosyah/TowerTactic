@@ -169,7 +169,7 @@ public class CharacterScript : MonoBehaviour {
                     
                     ResourcesMoney.color = Color.white;
                     MoneyText.color = Color.white;
-                    ResourcesMoney.text = (int.Parse(ResourcesMoney.text) + UnitCost) + "";
+                    ResourcesMoney.text = (int.Parse(ResourcesMoney.text) + Random.Range(1, 100)) + "";
                     score.YourSoldierKill = score.YourSoldierKill + 1;
 
                 }else if (side == "Player")
@@ -180,7 +180,7 @@ public class CharacterScript : MonoBehaviour {
                 gs.PlayDead();
 
             }
-            else if (HP == 2 || HP == 3 || HP == 4)
+            else if (HP == 2 || HP == 3 || HP == 4 && GameObject.Find(NameGameObject + "/head/helm_swordman") != null)
             {
                 Destroy(GameObject.Find(NameGameObject + "/head/helm_swordman"));
             }
@@ -197,7 +197,7 @@ public class CharacterScript : MonoBehaviour {
 
                     ResourcesMoney.color = Color.white;
                     MoneyText.color = Color.white;
-                    ResourcesMoney.text = (int.Parse(ResourcesMoney.text) + UnitCost) + "";
+                    ResourcesMoney.text = (int.Parse(ResourcesMoney.text) + Random.Range(1,100)) + "";
                     score.YourSoldierKill = score.YourSoldierKill + 1;
                     score.EnemySoldierLost = score.EnemySoldierLost + 1;
                 }

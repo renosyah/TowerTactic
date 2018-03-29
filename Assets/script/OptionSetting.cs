@@ -38,7 +38,7 @@ public class OptionSetting : MonoBehaviour{
         {
             SetEasy();
 
-        }else if (data.dificulty ==1)
+        }else if (data.dificulty == 1)
         {
             SetNormal();
         }
@@ -85,6 +85,7 @@ public class OptionSetting : MonoBehaviour{
             ResourcesMoney = GameObject.Find("ResourcesMoney").GetComponent<Text>();
             ResourcesMoney.text = MoneyStart + "";
         }
+        Debug.Log(data.dificulty);
        
     }
 
@@ -114,7 +115,7 @@ public class OptionSetting : MonoBehaviour{
     public void SetEasy()
     {
         MineQuantity = Random.Range(2,3);
-        SpawnRate = 50;
+        SpawnRate = 720;
         FireRateMin = 1;
         FireRateMax = 250;
         PlusHP = 0;
@@ -125,7 +126,7 @@ public class OptionSetting : MonoBehaviour{
     public void SetNormal()
     {
         MineQuantity = Random.Range(1, 3);
-        SpawnRate = 45;
+        SpawnRate = 645;
         FireRateMin = 1;
         FireRateMax = 200;
         PlusHP = 2;
@@ -136,7 +137,7 @@ public class OptionSetting : MonoBehaviour{
     public void SetHard()
     {
         MineQuantity = Random.Range(1, 2);
-        SpawnRate = 20;
+        SpawnRate = 520;
         FireRateMin = 1;
         FireRateMax = 140;
         PlusHP = 3;
@@ -147,9 +148,9 @@ public class OptionSetting : MonoBehaviour{
     public void SetCrazy()
     {
         MineQuantity = 1;
-        SpawnRate = 5;
+        SpawnRate = 480;
         FireRateMin = 1;
-        FireRateMax = 75;
+        FireRateMax = 120;
         PlusHP = 4;
         RecourceGive = 0;
         CannonBallDamage = 10;

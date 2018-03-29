@@ -235,6 +235,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\script\AbandonFightScript.cs" />
     <Compile Include="Assets\script\CallSpawner.cs" />
     <Compile Include="Assets\script\CameraScriptController.cs" />
     <Compile Include="Assets\script\CannonBall.cs" />
